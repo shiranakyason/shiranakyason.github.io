@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>親分のキャンプ道具レビュー</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&family=Zen+Old+Mincho:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --charcoal: #141414;
+      --iron: #1e1e1e;
+      --ash: #2a2a2a;
+      --smoke: #3d3d3d;
+      --silver: #8a8a8a;
+      --fog: #c4c4c4;
+      --white: #f0ede8;
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --ember: #d4472a;
+      --rust: #8b2c14;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Shippori Mincho', serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(212,71,42,0.06) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0a0a 0%, #111008 50%, #0a0a0a 100%);
+    }
+
+    .header-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,0.04) 60px);
+    }
+
+    .mon {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotateMon 40s linear infinite;
+    }
+    .mon::before {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(201,168,76,0.07);
+      border-radius: 50%;
+    }
+    .mon::after {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border: 1px solid rgba(201,168,76,0.04);
+      border-radius: 50%;
+    }
+
+    @keyframes rotateMon {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+
+    .main-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 10vw, 7rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+
+    .main-title span {
+      color: var(--gold);
+      display: block;
+    }
+
+    .subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--silver);
+      margin-top: 1.5rem;
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+
+    .disclaimer {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--smoke);
+      margin-top: 1.2rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--smoke);
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--silver);
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(201,168,76,0.4), transparent);
+      max-width: 200px;
+    }
+
+    .section-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── INTRO ─── */
+    #intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .intro-text p {
+      color: var(--fog);
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    .intro-quote {
+      position: relative;
+      background: var(--charcoal);
+      border-left: 3px solid var(--gold);
+      padding: 2rem 2.5rem;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .intro-quote::before {
+      content: '「';
+      font-size: 5rem;
+      color: rgba(201,168,76,0.15);
+      position: absolute;
+      top: -1rem;
+      left: 0.5rem;
+      line-height: 1;
+      font-style: normal;
+    }
+
+    .quote-attr {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      font-style: normal;
+      color: var(--gold);
+      font-family: 'Share Tech Mono', monospace;
+      letter-spacing: 0.2em;
+    }
+
+    /* ─── PRODUCTS ─── */
+    #products {
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .product-card {
+      background: var(--charcoal);
+      border: 1px solid rgba(201,168,76,0.1);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-4px);
+    }
+
+    .product-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), var(--ember));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .product-card:hover::after { transform: scaleX(1); }
+
+    .product-rank {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      padding: 0.3rem 0.7rem;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .product-img-wrap {
+      width: 100%;
+      height: 200px;
+      background: var(--iron);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 60%);
+    }
+
+    .product-body {
+      padding: 1.8rem;
+    }
+
+    .product-category {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.4em;
+      color: var(--ember);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--white);
+    }
+
+    .product-desc {
+      font-size: 0.88rem;
+      color: var(--silver);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-quote {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--fog);
+      border-left: 2px solid var(--gold);
+      padding-left: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .stars { color: var(--gold); font-size: 0.9rem; }
+
+    .rating-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--silver);
+    }
+
+    .affiliate-btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+      cursor: pointer;
+    }
+
+    .affiliate-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .affiliate-btn.primary {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .affiliate-btn.primary:hover {
+      background: var(--gold-light);
+    }
+
+    /* ─── REVIEW SECTION ─── */
+    #reviews {
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .review-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+
+    .review-sidebar {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .oyabun-profile {
+      background: var(--charcoal);
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .profile-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .profile-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .profile-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .profile-bio {
+      font-size: 0.82rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(201,168,76,0.1);
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      background: var(--charcoal);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--smoke);
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .review-item {
+      background: var(--charcoal);
+      border: 1px solid rgba(201,168,76,0.08);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .review-item:hover { border-color: rgba(201,168,76,0.25); }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .review-product {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .review-verdict {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid;
+    }
+
+    .verdict-pass {
+      color: #5aad7a;
+      border-color: rgba(90,173,122,0.3);
+      background: rgba(90,173,122,0.05);
+    }
+
+    .verdict-fail {
+      color: var(--ember);
+      border-color: rgba(212,71,42,0.3);
+      background: rgba(212,71,42,0.05);
+    }
+
+    .review-text {
+      font-size: 0.92rem;
+      color: var(--fog);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .review-oyabun-word {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--gold);
+      border-left: 2px solid var(--gold);
+      padding-left: 0.8rem;
+    }
+
+    /* ─── BANNER ─── */
+    .full-banner {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .full-banner::before {
+      content: '仁義';
+      position: absolute;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 20rem;
+      font-weight: 900;
+      color: rgba(201,168,76,0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .banner-inner {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .banner-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 1rem;
+    }
+
+    .banner-sub {
+      color: var(--silver);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      padding: 1rem 2.5rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-main:hover { background: var(--gold-light); }
+
+    .btn-sub {
+      padding: 1rem 2.5rem;
+      background: transparent;
+      color: var(--silver);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--smoke);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-sub:hover { border-color: var(--silver); color: var(--white); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Zen Old Mincho', serif;
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+
+    .footer-note {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--smoke);
+      line-height: 2;
+      max-width: 500px;
+    }
+
+    /* ─── AFFILIATE NOTICE BAR ─── */
+    .notice-bar {
+      background: rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 0.6rem 2rem;
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--silver);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      #intro { grid-template-columns: 1fr; gap: 2.5rem; }
+      .review-layout { grid-template-columns: 1fr; }
+      .review-sidebar { position: static; }
+      nav { padding: 1rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- AFFILIATE NOTICE -->
+<div class="notice-bar">
+  ※ 本サイトにはアフィリエイト広告が含まれています。商品購入時に一部の収益を得る場合があります。
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">親分キャンプ</div>
+  <ul class="nav-links">
+    <li><a href="#products">おすすめ</a></li>
+    <li><a href="#reviews">レビュー</a></li>
+    <li><a href="#about">親分とは</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="header-bg"></div>
+  <div class="header-lines"></div>
+  <div class="mon"></div>
+  <div class="header-content">
+    <p class="eyebrow">Camp Gear Review — By The Boss</p>
+    <h1 class="main-title">
+      親分の<span>キャンプ道具</span>レビュー
+    </h1>
+    <p class="subtitle">怖そうに見えて、実はキャンプ道具に異常に詳しいおじさんが、本音で語るギアレビュー。</p>
+    <p class="disclaimer">※ 本サイトはフィクションのキャラクターによる演出です。</p>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="intro-text reveal">
+    <p class="section-label">ABOUT THIS SITE</p>
+    <h2 class="section-title">なぜ俺が<br>レビューするか</h2>
+    <p>このサイトは、キャンプ道具にだけ異常な熱量を持つ強面おじさんが、実際に使って感じた本音を書いています。</p>
+    <p>忖度なし。メーカーへの配慮なし。ただし、失敗しても絶対に認めません。</p>
+    <p>紹介する商品にはアフィリエイトリンクが含まれています。購入いただくと少し収益になります。それが何か？</p>
+  </div>
+  <div class="intro-quote reveal">
+    「キャンプ道具ってのはな…使い込んで初めてわかるもんがあるんや。俺みたいな目利きが選んだもんを、ありがたく参考にしとけ」
+    <span class="quote-attr">— 親分 / キャンプ歴28年</span>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <p class="section-label reveal">RECOMMENDED GEAR</p>
+  <h2 class="section-title reveal">親分認定<br>最強ギア</h2>
+
+  <div class="products-grid">
+
+    <!-- Card 1 -->
+    <div class="product-card reveal">
+      <span class="product-rank">NO.1 PICK</span>
+      <div class="product-img-wrap">🔥</div>
+      <div class="product-body">
+        <p class="product-category">Gas Burner / バーナー</p>
+        <h3 class="product-name">イワタニ ジュニアコンパクトバーナー CB-JCB</h3>
+        <p class="product-desc">カセットガスが燃料の万能バーナーだぜ。防災・登山・キャンプ、どんな場面でも頼れる一台。</p>
+        <p class="product-quote">「…最初は舐めてたわ。でも今は手放せん」</p>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-text">5.0 / 5.0 — 親分評価</span>
+        </div>
+        <a href="https://amzn.to/4su5nIy" class="affiliate-btn primary" target="_blank" rel="noopener">Amazonで確認する →</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card reveal">
+      <span class="product-rank">STAFF PICK</span>
+      <div class="product-img-wrap">⛺</div>
+      <div class="product-body">
+        <p class="product-category">Shelter / テント</p>
+        <h3 class="product-name">BUNDOK ソロドーム1 BDK-08</h3>
+        <p class="product-desc">ソロキャンプの本命。無骨なキャンプをしたい人向け。コンパクト収納で持ち運びも苦にならん。</p>
+        <p class="product-quote">「テントで妥協するやつは、キャンプを舐めとる」</p>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-text">4.8 / 5.0 — 親分評価</span>
+        </div>
+        <a href="https://amzn.to/4su5nIy" class="affiliate-btn" target="_blank" rel="noopener">Amazonで確認する →</a>
+      </div>
+    </div>
+
+    <!-- Card 3 (追加予定) -->
+    <div class="product-card reveal" style="display:none">
+      <span class="product-rank">VALUE PICK</span>
+      <div class="product-img-wrap">🪑</div>
+      <div class="product-body">
+        <p class="product-category">Furniture / チェア</p>
+        <h3 class="product-name">ヘリノックス チェアワン</h3>
+        <p class="product-desc">座り心地、収納性、耐久性すべてにおいてトップクラス。これが基準点や。</p>
+        <p class="product-quote">「…まあ、俺が認めたちゅうことはそういうことや」</p>
+        <div class="rating">
+          <span class="stars">★★★★☆</span>
+          <span class="rating-text">4.6 / 5.0 — 親分評価</span>
+        </div>
+        <a href="#" class="affiliate-btn">Amazonで確認する →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <p class="section-label reveal">HONEST REVIEWS</p>
+  <h2 class="section-title reveal">忖度なしの<br>本音レビュー</h2>
+
+  <div class="review-layout">
+    <div class="review-sidebar reveal" id="about">
+      <div class="oyabun-profile">
+        <span class="profile-icon">🧔</span>
+        <div class="profile-name">親分</div>
+        <div class="profile-title">CAMP GEAR SPECIALIST</div>
+        <p class="profile-bio">強面で知られるが、キャンプ道具に対してだけ異常に熱くなる中年男性。失敗しても絶対に認めず、必ず周囲をキョロキョロ確認する。</p>
+        <div class="profile-stats">
+          <div class="stat">
+            <span class="stat-num">28</span>
+            <span class="stat-label">YEARS</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">340+</span>
+            <span class="stat-label">REVIEWED</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">0</span>
+            <span class="stat-label">FAILURES*</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">PASSION</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-list">
+
+      <div class="review-item reveal">
+        <div class="review-header">
+          <div class="review-product">ユニフレーム 焚き火テーブル</div>
+          <span class="review-verdict verdict-pass">APPROVED</span>
+        </div>
+        <div class="stars" style="margin-bottom:0.8rem">★★★★★</div>
+        <p class="review-text">天板がステンレスなので熱い鍋や焚き火台を直置きできる。高さも絶妙で、ロースタイルのキャンプにぴったりや。重さも1.2kgと軽量で持ち運びも苦にならん。</p>
+        <p class="review-oyabun-word">「俺がこれを使い続けてる理由…聞かんでいい。わかるやつにはわかる。」</p>
+      </div>
+
+      <div class="review-item reveal">
+        <div class="review-header">
+          <div class="review-product">某メーカー ワンタッチテント</div>
+          <span class="review-verdict verdict-fail">REJECTED</span>
+        </div>
+        <div class="stars" style="margin-bottom:0.8rem; color: var(--ember)">★★☆☆☆</div>
+        <p class="review-text">ワンタッチと書いてあったが、実際に設営したら15分かかった。風に弱く、ペグが短すぎる。コスパも悪い。これは俺が失敗したわけではなく、商品が悪いんや。</p>
+        <p class="review-oyabun-word">「…（キョロキョロ）…次はもっとええやつ買えばええだけや。」</p>
+      </div>
+
+      <div class="review-item reveal">
+        <div class="review-header">
+          <div class="review-product">SOTO レギュレーターストーブ ST-310</div>
+          <span class="review-verdict verdict-pass">APPROVED</span>
+        </div>
+        <div class="stars" style="margin-bottom:0.8rem">★★★★★</div>
+        <p class="review-text">寒い時期でも火力が安定しとる。コンパクトで収納も楽。コスパも優秀で、初心者にも上級者にも勧められる数少ない一台や。これは間違いない。</p>
+        <p class="review-oyabun-word">「こういうのを本物の道具と言うんや。覚えとけ。」</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="full-banner">
+  <div class="banner-inner reveal">
+    <p class="section-label" style="justify-content:center">CAMP GEAR STORE</p>
+    <h2 class="banner-title">親分が認めた道具だけを揃えた<br>厳選リストはこちら</h2>
+    <p class="banner-sub">Amazonでチェックできます。迷ったらこれを見ろ。</p>
+    <div class="btn-row">
+      <a href="#" class="btn-main">Amazonで見る →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">親分キャンプ</div>
+    </div>
+    <div class="footer-note">
+      ※ 本サイトはアフィリエイト広告を含みます。<br>
+      ※ 登場するキャラクターはフィクションです。<br>
+      ※ 商品情報は掲載時点のものです。最新情報は各販売サイトにてご確認ください。<br>
+      © 2025 親分キャンプ All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
